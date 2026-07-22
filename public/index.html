@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Local YouTube Transcript</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="workspace" aria-label="YouTube transcript extractor">
+        <div class="control-bar">
+          <div class="brand">
+            <div class="brand-mark" aria-hidden="true">YT</div>
+            <div>
+              <h1>Local YouTube Transcript</h1>
+              <p>Japanese captions first, running on this computer.</p>
+            </div>
+          </div>
+          <div class="status-pill" id="status">Ready</div>
+        </div>
+
+        <form class="url-row" id="urlForm">
+          <label class="url-field">
+            <span>YouTube URL</span>
+            <input id="urlInput" name="url" autocomplete="off" placeholder="https://www.youtube.com/watch?v=..." required>
+          </label>
+          <button class="button secondary" id="inspectButton" type="submit">
+            <span aria-hidden="true">⌕</span>
+            Check captions
+          </button>
+          <button class="button primary" id="fetchButton" type="button" disabled>
+            <span aria-hidden="true">↓</span>
+            Get transcript
+          </button>
+        </form>
+
+        <div class="option-grid">
+          <label>
+            <span>Caption track</span>
+            <select id="trackSelect" disabled>
+              <option>No video loaded</option>
+            </select>
+          </label>
+          <label>
+            <span>Output</span>
+            <select id="formatSelect">
+              <option value="lines">Line by line</option>
+              <option value="readable">Readable text</option>
+              <option value="timestamped">Timestamped text</option>
+              <option value="srt">SRT subtitles</option>
+              <option value="vtt">VTT subtitles</option>
+              <option value="json">JSON</option>
+            </select>
+          </label>
+          <label class="toggle-row">
+            <input id="removeNoise" type="checkbox">
+            <span>Hide bracketed sound cues</span>
+          </label>
+        </div>
+
+        <div class="main-grid">
+          <section class="video-pane" aria-label="Video preview">
+            <div class="empty-video" id="emptyVideo">
+              <div class="empty-icon">▶</div>
+              <p>Paste a YouTube link to load available subtitles.</p>
+            </div>
+            <iframe id="player" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen hidden></iframe>
+            <div class="video-meta" id="videoMeta" hidden>
+              <img id="thumbnail" alt="">
+              <div>
+                <h2 id="videoTitle"></h2>
+                <p id="videoChannel"></p>
+              </div>
+            </div>
+          </section>
+
+          <section class="transcript-pane" aria-label="Transcript">
+            <div class="pane-toolbar">
+              <div>
+                <h2>Transcript</h2>
+                <p id="trackInfo">No captions loaded yet.</p>
+              </div>
+              <div class="toolbar-actions">
+                <button class="icon-button" id="copyButton" type="button" disabled title="Copy transcript" aria-label="Copy transcript">⧉</button>
+                <button class="icon-button" id="downloadButton" type="button" disabled title="Download transcript" aria-label="Download transcript">⇩</button>
+              </div>
+            </div>
+            <textarea id="outputText" spellcheck="false" placeholder="Your transcript will appear here."></textarea>
+          </section>
+        </div>
+
+        <section class="cue-pane" aria-label="Caption lines">
+          <div class="pane-toolbar compact">
+            <h2>Caption Lines</h2>
+            <p id="cueCount">0 lines</p>
+          </div>
+          <div class="cue-list" id="cueList"></div>
+        </section>
+      </section>
+    </main>
+
+    <script src="/app.js"></script>
+  </body>
+</html>

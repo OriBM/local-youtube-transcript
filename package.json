@@ -1,0 +1,12 @@
+{
+  "name": "youtube-transcript-local",
+  "version": "1.0.0",
+  "description": "A small local web app for extracting YouTube captions and transcripts.",
+  "private": true,
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
